@@ -1,10 +1,14 @@
 <?php 
 class Movie {
+
     private string $titolo;
     private array $generi;
     private string $data_di_uscita;
 
     public function __construct(string $titolo) {
+        if(strlen($titolo) < 1) {
+            throw new Exception('Nessun genere trovato');
+        }
         $this->titolo = $titolo;
     }
 
@@ -13,6 +17,9 @@ class Movie {
     }
 
     public function setGeneri(array $generi){
+        if(count($generi) < 1) {
+            throw new Exception('Nessun genere trovato');
+        }
         $this -> generi = $generi;
     }
 
@@ -21,10 +28,14 @@ class Movie {
     }
 
     public function setData(string $data){
+        if(strlen($data) < 6 || strlen($data) > 20) {
+            throw new Exception('Data inserita non valida');
+        }
         $this -> data_di_uscita = $data;
     }
 
     public function getData(){
+        
         return $this -> data_di_uscita;
     }
 
