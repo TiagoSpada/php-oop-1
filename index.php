@@ -1,13 +1,36 @@
 <?php 
 class Movie {
-    public $titolo;
-    public $generi;
-    public $data_di_uscita;
+    private string $titolo;
+    private array $generi;
+    private string $data_di_uscita;
 
-    public function __construct(string $_titolo) {
-        $this->titolo = $_titolo;
+    public function __construct(string $titolo) {
+        $this->titolo = $titolo;
     }
+
+    public function getTitolo(){
+        return $this -> titolo;
+    }
+
+    public function setGeneri(array $generi){
+        $this -> generi = $generi;
+    }
+
+    public function getGeneri(){
+        return $this -> generi;
+    }
+
+    public function setData(string $data){
+        $this -> data_di_uscita = $data;
+    }
+
+    public function getData(){
+        return $this -> data_di_uscita;
+    }
+
 }
 $avatar = new Movie('Avatar');
-echo $avatar -> titolo  ;
+$avatar->setGeneri(['avventura','azione','fantastico']);
+$avatar->setData('18/12/2009');
+var_dump($avatar->getGeneri());
 ?>
