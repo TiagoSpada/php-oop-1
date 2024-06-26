@@ -5,7 +5,8 @@ class Movie {
     private string $titolo;
     private array $generi;
     private string $data_di_uscita;
-    public ?Actor $attore=null;
+    // public ?Actor $attore=null;
+    private array $attori;
 
     /***** COSTRUTTORE ******/
     public function __construct(string $titolo, string $data_di_uscita) {
@@ -51,14 +52,15 @@ class Movie {
     }
 
     /***** SET ATTORI ******/
-    public function setAttore(Actor $attore) :void{
-        $this -> attore = $attore;
+    public function setAttori(Actor $attore) :void{
+        
+        $this -> attori[] = $attore;
     }
     /***** GET ATTORI ******/
 
-    public function getAttore(): ?Actor{
+    public function getAttori(): array{
         
-        return $this -> attore;
+        return $this -> attori;
     }
     
 

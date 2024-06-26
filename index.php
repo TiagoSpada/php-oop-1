@@ -5,14 +5,15 @@ include_once __DIR__.'/models/movie.php';
 try {
     $avatar = new Movie('Avatar','18/12/2009');
     $avatar->setGeneri(['avventura','azione','fantastico']);
-    $avatar -> setAttore(new Actor('Sam', 'Worthington'));
+    $avatar -> setAttori(new Actor('Sam', 'Worthington'));
 
     $list_film[]= $avatar;
     // var_dump($avatar);
 
     $titanic = new Movie( 'Titanic' , '16/01/1998');
     $titanic->setGeneri(['drammatico','sentimentale']);
-    $titanic -> setAttore(new Actor('Kate', 'Winslet'));
+    $titanic -> setAttori(new Actor('Kate', 'Winslet'));
+    $titanic -> setAttori(new Actor('Leonardo', 'Di Caprio'));
 
     // var_dump($avatar);
     $list_film[]= $titanic;
@@ -20,6 +21,7 @@ try {
 } catch (Exception $error) {
     echo  $error -> getMessage();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +45,12 @@ try {
                     </ul>
                 </li >
                 <li class="list-group-item">data di uscita: <?php echo $movie -> getData();  ?></li>
-                <li class="list-group-item">Attori: <?php echo $movie->getAttore()->getNome() .' '. $movie->getAttore()->getCognome()?>
+                <li class="list-group-item">Attori:
+                    <ul> 
+                        <?php foreach($movie->getAttori() as $attore):?>
+                            <li><?php echo $attore?->getNome() .' '. $attore?->getCognome();  ?></li>
+                        <?php endforeach; ?>
+                    </ul>
                 </li>
                 
             </ul>
