@@ -1,56 +1,25 @@
 <?php 
-class Movie {
+include_once __DIR__.'/models/actor.php';
+include_once __DIR__.'/models/movie.php';
 
-    private string $titolo;
-    private array $generi;
-    private string $data_di_uscita;
+try {
+    $avatar = new Movie('Avatar','18/12/2009');
+    $avatar->setGeneri(['avventura','azione','fantastico']);
+    $avatar -> setAttore(new Actor('Sam', 'Worthington'));
 
-    public function __construct(string $titolo) {
-        if(strlen($titolo) < 1) {
-            throw new Exception('Nessun genere trovato');
-        }
-        $this->titolo = $titolo;
-    }
+    $list_film[]= $avatar;
+    // var_dump($avatar);
 
-    public function getTitolo(){
-        return $this -> titolo;
-    }
+    $titanic = new Movie( 'Titanic' , '16/01/1998');
+    $titanic->setGeneri(['drammatico','sentimentale']);
+    $titanic -> setAttore(new Actor('Kate', 'Winslet'));
 
-    public function setGeneri(array $generi){
-        if(count($generi) < 1) {
-            throw new Exception('Nessun genere trovato');
-        }
-        $this -> generi = $generi;
-    }
+    // var_dump($avatar);
+    $list_film[]= $titanic;
 
-    public function getGeneri(){
-        return $this -> generi;
-    }
-
-    public function setData(string $data){
-        if(strlen($data) < 6 || strlen($data) > 20) {
-            throw new Exception('Data inserita non valida');
-        }
-        $this -> data_di_uscita = $data;
-    }
-
-    public function getData(){
-        
-        return $this -> data_di_uscita;
-    }
-
+} catch (Exception $error) {
+    echo  $error -> getMessage();
 }
-$avatar = new Movie('Avatar');
-$avatar->setGeneri(['avventura','azione','fantastico']);
-$avatar->setData('18/12/2009');
-// var_dump($avatar->getGeneri());
-
-
-$titanic = new Movie('Titanic');
-$titanic->setGeneri(['drammatico','sentimentale']);
-$titanic->setData('16/01/1998');
-// var_dump($avatar);
-
 ?>
 
 <!DOCTYPE html>
@@ -63,31 +32,22 @@ $titanic->setData('16/01/1998');
 </head>
 <body>
     <div class="container">
-
-        <h2><?php echo $avatar -> getTitolo(); ?></h2>
-        <ul class="list-group">
-            <li class="list-group-item">generi: 
-                <ul> 
-                    <?php foreach($avatar -> getGeneri() as $generi):?>
-                        <li><?php echo $generi;  ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </li >
-            <li class="list-group-item">data di uscita: <?php echo $avatar -> getData();  ?></li>
-        </ul>
-
-        <h2><?php echo $titanic -> getTitolo(); ?></h2>
-        <ul  class="list-group">
-            <li class="list-group-item">generi: 
-                <ul>
-                    <?php foreach($titanic -> getGeneri() as $generi):?>
-                        <li><?php echo $generi;  ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </li>
-            <li class="list-group-item">data di uscita: <?php echo $titanic -> getData();  ?></li>
-        </ul>
-
+        <?php foreach($list_film as $movie): ?>
+            <h2><?php echo $movie -> getTitolo(); ?></h2>
+            <ul class="list-group mb-4">
+                <li class="list-group-item">generi: 
+                    <ul> 
+                        <?php foreach($movie -> getGeneri() as $generi):?>
+                            <li><?php echo $generi;  ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </li >
+                <li class="list-group-item">data di uscita: <?php echo $movie -> getData();  ?></li>
+                <li class="list-group-item">Attori: <?php echo $movie->getAttore()->getNome() .' '. $movie->getAttore()->getCognome()?>
+                </li>
+                
+            </ul>
+        <?php endforeach ?>
     </div>
 </body>
 </html>
